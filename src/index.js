@@ -1,7 +1,15 @@
 let playerAttack;
 let enemyAttack;
-// Selección de elementos desde HTML.
+let playerLives = 3;
+let enemyLives = 3;
+// Selección de botones desde HTML.
 function initGame() {
+    // Ocultar sección de ataque.
+    let sectionSelectAttack = document.getElementById('select-attack');
+    sectionSelectAttack.style.display = 'none';
+    // Ocultar sección reiniciar.
+    let sectionRestart = document.getElementById('restart');
+    sectionRestart.style.display = 'none';
     // button-pet
     let buttonPetPlayer = document.getElementById('button-pet');
     buttonPetPlayer.addEventListener('click', selectPetPlayer);
@@ -14,6 +22,9 @@ function initGame() {
     // button-earth
     let buttonEarth = document.getElementById('button-earth');
     buttonEarth.addEventListener('click', EarthAttack);
+    // button-restart
+    let restartButton = document.getElementById('button-restart');
+    restartButton.addEventListener('click', restartGame);
 }
 // Valores aleatorios.
 function randomNumber(min, max) {
@@ -21,6 +32,12 @@ function randomNumber(min, max) {
 }
 // Selección aleatoria de mascota jugador.
 function selectPetPlayer() {
+    // Aparición de los elementos en pantalla.
+    let sectionSelectAttack = document.getElementById('select-attack');
+    sectionSelectAttack.style.display = 'block';
+    // Ocultación de elección de mascotas
+    let sectionSelectPet = document.getElementById('select-pet');
+    sectionSelectPet.style.display = 'none';
     // variables de validación para selección de mascotas.
     let inputHipodoge = document.getElementById('hipodoge');
     let inputCapipepo = document.getElementById('capipepo');
@@ -92,16 +109,37 @@ function randomEnemyAttack() {
 }
 // Resultado de los combates entre mascotas.
 function combat() {
+    let spanLivesPetPlayer = document.getElementById('lives-pet-player');
+    let spanLivesPetEnemy = document.getElementById('lives-pet-enemy');
+
     if (playerAttack == enemyAttack) {
         createMessage(' Empate');
     } else if (playerAttack == 'Fuego' && enemyAttack == 'Tierra') {
         createMessage(' Ganaste');
+        enemyLives--;
+        spanLivesPetEnemy.innerHTML = enemyLives;
     } else if (playerAttack == 'Agua' && enemyAttack == 'Fuego') {
         createMessage(' Ganaste');
+        enemyLives--;
+        spanLivesPetEnemy.innerHTML = enemyLives;
     } else if (playerAttack == 'Tierra' && enemyAttack == 'Agua'){
         createMessage(' Ganaste');
+        enemyLives--;
+        spanLivesPetEnemy.innerHTML = enemyLives;
     } else {
         createMessage(' Perdiste');
+        playerLives--;
+        spanLivesPetPlayer.innerHTML = playerLives;
+    }
+
+    lives();
+}
+// Revisar vidas
+function lives() {
+    if (enemyLives == 0) {
+        createFinalMessage("Felicitaciones! Ganaste!");
+    } else if (playerLives == 0){
+        createFinalMessage("Lo siento, has perdido...");
     }
 }
 // Mensaje de elecciones de jugadores.
@@ -112,6 +150,31 @@ function createMessage(combatResult) {
     messageElement.innerHTML = 'Tu mascota atacó con ' + playerAttack + '. La mascota enemiga atacó con ' + enemyAttack + '.' + combatResult;
 
     messageSection.appendChild(messageElement);
+}
+// Mensaje de resultado final
+function createFinalMessage(finalResult) {
+    let messageSection = document.getElementById('messages');
+
+    let messageElement = document.createElement('p');
+    messageElement.innerHTML = finalResult;
+
+    messageSection.appendChild(messageElement);
+
+    // Deshabilitación de botones del juego
+    let buttonFire = document.getElementById('button-fire');
+    buttonFire.disabled = true;
+    let buttonWater = document.getElementById('button-water');
+    buttonWater.disabled = true;
+    let buttonEarth = document.getElementById('button-earth');
+    buttonEarth.disabled = true;
+
+    // Aparición de botón reiniciar
+    let sectionRestart = document.getElementById('restart');
+    sectionRestart.style.display = 'block';
+}
+// Reiniciar juego
+function restartGame() {
+    location.reload();
 }
 // Ejecución del código cuando el DOM finalice la carga.
 window.addEventListener('load', initGame);
