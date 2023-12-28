@@ -1,0 +1,15 @@
+{
+  "name": "multigameweb",
+  "version": "1.0.0",
+  "description": "Juego multijugador en plataforma Web",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "author": "Juan Martin Borrini",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "prettier": "^3.1.1"
+  }
+}
