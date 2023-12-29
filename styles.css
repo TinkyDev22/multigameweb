@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&family=Poppins:wght@300&display=swap');
 
 body {
     font-family: 'Fredoka', sans-serif;
@@ -24,13 +24,14 @@ body {
     gap: 10px;
 }
 .select-pet-label {
+    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
     width: 180px;
     height: 100px;
     padding: 10px;
     margin: 10px;
-    background: #114685;
-    border: 1px solid black;
+    background: transparent;
+    border: 2px solid white;
     border-radius: 20px;
     display: flex;
     color: white;
@@ -39,6 +40,21 @@ body {
 }
 .select-pet-label img {
     width: 80px;
+}
+.select-pet-label:hover {
+    cursor: pointer;
+}
+#button-pet {
+    font-family: 'Poppins', sans-serif;
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+}
+#button-pet:hover {
+    cursor: pointer;
 }
 input {
     display: none;
