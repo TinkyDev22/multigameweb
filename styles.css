@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+
+body {
+    font-family: 'Fredoka', sans-serif;
+    background-color: #041562;
+}
+#select-pet {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.title {
+    color: white;
+    font-size: 32px;
+}
+.subtitle {
+    color: white;
+    font-size: 20px;
+}
+.cards {
+    display: flex;
+    gap: 10px;
+}
+.select-pet-label {
+    box-sizing: border-box;
+    width: 180px;
+    height: 100px;
+    padding: 10px;
+    margin: 10px;
+    background: #114685;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+.select-pet-label img {
+    width: 80px;
+}
+input {
+    display: none;
+}
