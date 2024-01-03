@@ -34,7 +34,7 @@ function randomNumber(min, max) {
 function selectPetPlayer() {
     // Aparición de los elementos en pantalla.
     let sectionSelectAttack = document.getElementById('select-attack');
-    sectionSelectAttack.style.display = 'block';
+    sectionSelectAttack.style.display = 'flex';
     // Ocultación de elección de mascotas
     let sectionSelectPet = document.getElementById('select-pet');
     sectionSelectPet.style.display = 'none';
@@ -47,15 +47,15 @@ function selectPetPlayer() {
     // Selección de la mascota del jugador.
     if (inputHipodoge.checked) {
         // HIpodoge
-        alert('Seleccionaste a Hipodoge');
+        // alert('Seleccionaste a Hipodoge');
         spanNamePetPlayer.innerHTML = 'Hipodoge';
     } else if (inputCapipepo.checked) {
         // Capipepo
-        alert('Seleccionaste a Capipepo');
+        // alert('Seleccionaste a Capipepo');
         spanNamePetPlayer.innerHTML = 'Capipepo';
     } else if (inputRatigueya.checked) {
         // Ratigueya
-        alert('Seleccionaste a Ratigueya');
+        // alert('Seleccionaste a Ratigueya');
         spanNamePetPlayer.innerHTML = 'Ratigueya';
     } else {
         alert('Selecciona una Mascota');
@@ -113,21 +113,21 @@ function combat() {
     let spanLivesPetEnemy = document.getElementById('lives-pet-enemy');
 
     if (playerAttack == enemyAttack) {
-        createMessage(' Empate');
+        createMessage('Empate');
     } else if (playerAttack == 'Fuego' && enemyAttack == 'Tierra') {
-        createMessage(' Ganaste');
+        createMessage('Ganaste');
         enemyLives--;
         spanLivesPetEnemy.innerHTML = enemyLives;
     } else if (playerAttack == 'Agua' && enemyAttack == 'Fuego') {
-        createMessage(' Ganaste');
+        createMessage('Ganaste');
         enemyLives--;
         spanLivesPetEnemy.innerHTML = enemyLives;
     } else if (playerAttack == 'Tierra' && enemyAttack == 'Agua'){
-        createMessage(' Ganaste');
+        createMessage('Ganaste');
         enemyLives--;
         spanLivesPetEnemy.innerHTML = enemyLives;
     } else {
-        createMessage(' Perdiste');
+        createMessage('Perdiste');
         playerLives--;
         spanLivesPetPlayer.innerHTML = playerLives;
     }
@@ -144,21 +144,24 @@ function lives() {
 }
 // Mensaje de elecciones de jugadores.
 function createMessage(combatResult) {
-    let messageSection = document.getElementById('messages');
+    let scoreSection = document.getElementById('scores');
+    let playerAttacks = document.getElementById('player-attacks');
+    let enemyAttacks = document.getElementById('enemy-attacks');
 
-    let messageElement = document.createElement('p');
-    messageElement.innerHTML = 'Tu mascota atacó con ' + playerAttack + '. La mascota enemiga atacó con ' + enemyAttack + '.' + combatResult;
+    scoreSection.innerHTML = combatResult;
 
-    messageSection.appendChild(messageElement);
+    let playerNotification = document.createElement('p');
+    playerNotification.innerHTML = playerAttack;
+    playerAttacks.appendChild(playerNotification);
+
+    let enemyNotification = document.createElement('p');
+    enemyNotification.innerHTML = enemyAttack;
+    enemyAttacks.appendChild(enemyNotification);
 }
 // Mensaje de resultado final
 function createFinalMessage(finalResult) {
-    let messageSection = document.getElementById('messages');
-
-    let messageElement = document.createElement('p');
-    messageElement.innerHTML = finalResult;
-
-    messageSection.appendChild(messageElement);
+    let messageSection = document.getElementById('scores');
+    messageSection.innerHTML = finalResult;
 
     // Deshabilitación de botones del juego
     let buttonFire = document.getElementById('button-fire');
@@ -170,7 +173,7 @@ function createFinalMessage(finalResult) {
 
     // Aparición de botón reiniciar
     let sectionRestart = document.getElementById('restart');
-    sectionRestart.style.display = 'block';
+    sectionRestart.style.display = 'flex';
 }
 // Reiniciar juego
 function restartGame() {

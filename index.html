@@ -10,50 +10,64 @@
 <body>
     <section id="select-pet">
         <h1 class="title">Mokepon</h1>
+
         <h2 class="subtitle">Selecciona tu mascota</h2>
+
         <div class="cards">
             <label class="select-pet-label" for="hipodoge">
                 <p>Hipodoge</p>
                 <img src="./assets/mokepons_mokepon_hipodoge_attack.png" alt="Hipodoge">
             </label>
+
             <input type="radio" name="pets" id="hipodoge">
     
             <label class="select-pet-label" for="capipepo">
                 <p>capipepo</p>
                 <img src="./assets/mokepons_mokepon_capipepo_attack.png" alt="capipepo">    
             </label>
+
             <input type="radio" name="pets" id="capipepo">
     
             <label class="select-pet-label" for="ratigueya">
                 <p>Ratigueya</p>
                 <img src="./assets/mokepons_mokepon_ratigueya_attack.png" alt="Ratigueya">
             </label>
+
             <input type="radio" name="pets" id="ratigueya">
         </div>
         <button id="button-pet">Seleccionar</button>
     </section>
 
     <section id="select-attack">
-        <h1 class="title">MOKEPON</h1>
+        <h1 class="title">Mokepon</h1>
 
-        <h2>Selecciona tu ataque</h2>
+        <h2 class="subtitle">Selecciona tu ataque</h2>
 
-        <p>Tu mascota <span id="name-pet-player"></span> tiene <span id="lives-pet-player">3</span> vidas</p>
-        <p>La mascota <span id="name-pet-enemy"></span> del enemigo tiene <span id="lives-pet-enemy">3</span> vidas</p>
+        <div>
+            <button class="button-attacks" id="button-water">Agua</button>
+            <button class="button-attacks" id="button-earth">Tierra</button>
+            <button class="button-attacks" id="button-fire">Fuego</button>
+        </div>
 
-        <p>
-            <button id="button-fire">Fuego</button>
-            <button id="button-water">Agua</button>
-            <button id="button-earth">Tierra</button>
-        </p>
-    </section>
+        <div id="messages">
+            <p id="scores">¡Mucha suerte!</p>
+            <section id="restart">
+                <button id="button-restart">Reiniciar</button>
+            </section>
+        </div>
 
-    <section id="messages">
-        
-    </section>
-
-    <section id="restart">
-        <button id="button-restart">Reiniciar</button>
+        <div class="attack-list">
+            <div>
+                <p id="lives-pet-player">3</p>
+                <p id="name-pet-player"></p>
+                <div id="player-attacks"></div>
+            </div>
+            <div>
+                <p id="lives-pet-enemy"></p>
+                <p id="name-pet-enemy"></p>               
+                <div id="enemy-attacks"></div>
+            </div>
+        </div>
     </section>
 </body>
 </html>
