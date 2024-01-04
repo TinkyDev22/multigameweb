@@ -18,6 +18,7 @@ const scoreSection = document.getElementById('scores')
 const playerAttacks = document.getElementById('player-attacks')
 const enemyAttacks = document.getElementById('enemy-attacks')
 const sectionRestart = document.getElementById('restart')
+const cardsContainer = document.getElementById('cards-container')
 
 /* ---- Variables globales ---- */
 
@@ -31,6 +32,9 @@ let enemyAttack
 // Vidas
 let playerLives = 3
 let enemyLives = 3
+
+//
+let mokeponOption
 
 /* ---- Clases ---- */
 
@@ -48,9 +52,6 @@ class Mokepon {
 let hipodoge = new Mokepon('Hipodoge','./assets/mokepons_mokepon_hipodoge_attack.png', 5)
 let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5)
 let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5)
-
-// Añadido de mokepones en el array
-mokepones.push(hipodoge, capipepo, ratigueya)
 
 // Añadido de ataques a los mokepones
 hipodoge.attacks.push(
@@ -75,6 +76,9 @@ ratigueya.attacks.push(
     { id: 'button-water', name: 'Agua' },
 )
 
+// Añadido de mokepones en el array
+mokepones.push(hipodoge, capipepo, ratigueya)
+
 /* ---- Funciones auxiliares ---- */
 
 // Valores aleatorios
@@ -85,10 +89,23 @@ function randomNumber(min, max) {
 /* ---- Funciones del juego ---- */
 
 // Ejecución de funciones de inicio del juego
-function initGame() {    
+function initGame() {
     // Ocultación de secciones de selección de ataque y reinicio de juego
     sectionSelectAttack.style.display = 'none'
     sectionRestart.style.display = 'none'
+
+    // Inicialización de mokepones
+    mokepones.forEach((mokepon) => {
+        mokeponOption = `
+        <input type="radio" name="pets" id="${mokepon.name}">
+        <label class="select-pet-label" for="${mokepon.name}">
+                <p>${mokepon.name}</p>
+                <img src="${mokepon.picture}" alt="${mokepon.name}">
+            </label>
+        `
+        cardsContainer.innerHTML += mokeponOption
+    })
+
     buttonPetPlayer.addEventListener('click', selectPetPlayer)
     buttonFire.addEventListener('click', FireAttack)
     buttonWater.addEventListener('click', WaterAttack)
