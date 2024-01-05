@@ -3,12 +3,6 @@
 const sectionSelectPet = document.getElementById('select-pet')
 const sectionSelectAttack = document.getElementById('select-attack')
 const buttonPetPlayer = document.getElementById('button-pet')
-const inputHipodoge = document.getElementById('hipodoge')
-const inputCapipepo = document.getElementById('capipepo')
-const inputRatigueya = document.getElementById('ratigueya')
-const buttonFire = document.getElementById('button-fire')
-const buttonWater = document.getElementById('button-water')
-const buttonEarth = document.getElementById('button-earth')
 const restartButton = document.getElementById('button-restart')
 const spanNamePetPlayer = document.getElementById('name-pet-player')
 const spanNamePetEnemy = document.getElementById('name-pet-enemy')
@@ -19,6 +13,7 @@ const playerAttacks = document.getElementById('player-attacks')
 const enemyAttacks = document.getElementById('enemy-attacks')
 const sectionRestart = document.getElementById('restart')
 const cardsContainer = document.getElementById('cards-container')
+const attacksContainer = document.getElementById('attacks-container')
 
 /* ---- Variables globales ---- */
 
@@ -28,6 +23,20 @@ let mokepones = []
 // Ataques
 let playerAttack
 let enemyAttack
+
+// Almacenamiento de botones de selección de mascotas
+let inputHipodoge
+let inputCapipepo
+let inputRatigueya
+
+// Almacenamiento de botones de ataques de mascotas
+let attacksMokepons
+let buttonFire
+let buttonWater
+let buttonEarth
+
+// Almacenamiento del nombre de la mascota del jugador
+let petPlayer
 
 // Vidas
 let playerLives = 3
@@ -85,6 +94,16 @@ mokepones.push(hipodoge, capipepo, ratigueya)
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
+// Extraer del arreglo de mokepones los ataques de la mascota
+function extractAttack(petPlayer) {
+    let attacks
+    for (let i = 0; i < mokepones.length; i++) {
+        if (petPlayer === mokepones[i].name) {
+            attacks = mokepones[i].attacks
+        }        
+    }
+    showAttacks(attacks)
+}
 
 /* ---- Funciones del juego ---- */
 
@@ -104,45 +123,62 @@ function initGame() {
             </label>
         `
         cardsContainer.innerHTML += mokeponOption
+
+        inputHipodoge = document.getElementById('Hipodoge')
+        inputCapipepo = document.getElementById('Capipepo')
+        inputRatigueya = document.getElementById('Ratigueya')
     })
 
     buttonPetPlayer.addEventListener('click', selectPetPlayer)
-    buttonFire.addEventListener('click', FireAttack)
-    buttonWater.addEventListener('click', WaterAttack)
-    buttonEarth.addEventListener('click', EarthAttack)
     restartButton.addEventListener('click', restartGame)
 }
 
 // Selección aleatoria de mascota jugador
 function selectPetPlayer() {
     // Aparición de los elementos en pantalla
-    sectionSelectAttack.style.display = 'flex';
+    sectionSelectAttack.style.display = 'flex'
     // Ocultación de elección de mascotas
-    sectionSelectPet.style.display = 'none';
+    sectionSelectPet.style.display = 'none'
     // Selección de la mascota del jugador
+    // inputHipodoge.id toma el nombre del objeto creado al comienzo
     if (inputHipodoge.checked) {
-        spanNamePetPlayer.innerHTML = 'Hipodoge';
+        spanNamePetPlayer.innerHTML = inputHipodoge.id
+        petPlayer = inputHipodoge.id
     } else if (inputCapipepo.checked) {
-        spanNamePetPlayer.innerHTML = 'Capipepo';
+        spanNamePetPlayer.innerHTML = inputCapipepo.id
+        petPlayer = inputCapipepo.id
     } else if (inputRatigueya.checked) {
-        spanNamePetPlayer.innerHTML = 'Ratigueya';
+        spanNamePetPlayer.innerHTML = inputRatigueya.id
+        petPlayer = inputRatigueya.id
     } else {
-        alert('Selecciona una Mascota');
+        alert('Selecciona una Mascota')
     }
-    selectPetEnemy();
+    extractAttack(petPlayer)
+    selectPetEnemy()
 }
 // Selección aleatoria de mascota enemiga.
 function selectPetEnemy() {
     // Valor aleatorio para el valor del ataque enemigo.
-    let randomEnemy = randomNumber(1,3);
+    let randomEnemy = randomNumber( 0 , mokepones.length - 1 )
     // Selección de la mascota del enemigo.
-    if (randomEnemy == 1) {
-        spanNamePetEnemy.innerHTML = 'Hipodoge';
-    } else if (randomEnemy == 2) {
-        spanNamePetEnemy.innerHTML = 'Capipepo';
-    } else {
-        spanNamePetEnemy.innerHTML = 'Ratigueya';
-    }
+    spanNamePetEnemy.innerHTML = mokepones[randomEnemy].name
+}
+// Mostrar ataques
+function showAttacks(attacks) {
+    attacks.forEach(attack => {
+        attacksMokepons = `
+        <button class="button-attacks" id="${attack.id}">${attack.name}</button>
+        `
+        attacksContainer.innerHTML += attacksMokepons
+    })
+
+    buttonFire = document.getElementById('button-fire')
+    buttonWater = document.getElementById('button-water')
+    buttonEarth = document.getElementById('button-earth')
+
+    buttonFire.addEventListener('click', FireAttack)
+    buttonWater.addEventListener('click', WaterAttack)
+    buttonEarth.addEventListener('click', EarthAttack)
 }
 // Valores de ataque de mascotas.
 function FireAttack() {
