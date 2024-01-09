@@ -75,8 +75,6 @@ let petPlayer
 // Vidas
 let victoriesPlayer = 0
 let victoriesEnemy = 0
-let playerLives = 3
-let enemyLives = 3
 
 // Variable que almacena un string con la generación del boton de la mascota seleccionada en el string de mokepones. Se utiliza en "initGame".
 let mokeponOption
@@ -225,14 +223,17 @@ function secuenceAttacks() {
                 playerAttack.push('Fuego')
                 console.log(playerAttack)
                 button.style.background = '#112f58'
+                button.disabled = true
             } else if (e.target.textContent === 'Agua') {
                 playerAttack.push('Agua')
                 console.log(playerAttack)
                 button.style.background = '#112f58'
+                button.disabled = true
             } else if (e.target.textContent === 'Tierra') {
                 playerAttack.push('Tierra')
                 console.log(playerAttack)
                 button.style.background = '#112f58'
+                button.disabled = true
             }
             // Se coloca dentro del flujo para que no se elija primero el ataque enemigo y despues el jugador elija. Si se coloca por dentro del ForEach y por Fuera del IF se ejecuta 5 veces la misma.
             randomEnemyAttack()
@@ -269,7 +270,6 @@ function combat() {
         if (playerAttack[i] === enemyAttack[1]) {
             oponentsValues(i, i)
             createMessage('Empate')
-            spanLivesPetPlayer.innerHTML = victoriesPlayer
         } else if (playerAttack[i] === 'Fuego' && enemyAttack[i] === 'Tierra') {
             oponentsValues(i, i)
             createMessage('Ganaste')
@@ -319,10 +319,6 @@ function createMessage(combatResult) {
 // Mensaje de resultado final
 function createFinalMessage(finalResult) {
     scoreSection.innerHTML = finalResult
-    // Deshabilitación de botones del juego
-    buttonFire.disabled = true
-    buttonWater.disabled = true
-    buttonEarth.disabled = true
     // Aparición de botón reiniciar
     sectionRestart.style.display = 'flex'
 }

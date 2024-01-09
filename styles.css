@@ -85,24 +85,12 @@ input {
 .button-attacks {
     font-family: 'Poppins', sans-serif;
     margin: 0px 10px 0px 10px;
-    width: 180px;
+    width: 80px;
     height: 40px;
     border-radius: 20px;
     background: transparent;
     border: 2px solid white;
     color: white;
-}
-.button-attacks:nth-child(1) {
-    color: #b2e2f2;
-    border: 2px solid #b2e2f2;
-}
-.button-attacks:nth-child(2) {
-    color: #8cfca4;
-    border: 2px solid #8cfca4;
-}
-.button-attacks:nth-child(3) {
-    color: #ff6565;
-    border: 2px solid #ff6565;
 }
 #scores {
     display: flex;
