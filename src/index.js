@@ -54,6 +54,10 @@ let playerAttack = []
 //
 let choiseAttackEnemy
 
+//
+let indexPlayerAttack
+let indexEnemyAttack
+
 // Almacenamiento de botones de selección de mascotas luego de ejecutarse en "initGame".
 let inputHipodoge
 let inputCapipepo
@@ -69,6 +73,8 @@ let buttonEarth
 let petPlayer
 
 // Vidas
+let victoriesPlayer = 0
+let victoriesEnemy = 0
 let playerLives = 3
 let enemyLives = 3
 
@@ -245,61 +251,80 @@ function randomEnemyAttack() {
         enemyAttack.push('Tierra')
     }
     console.log(enemyAttack)
-    combat();
+    initCombat()
+}
+function initCombat() {
+    if (playerAttack.length === 5) {
+        combat()
+    }
+}
+// auxiliar
+function oponentsValues(player, enemy) {
+    indexPlayerAttack = playerAttack[player]
+    indexEnemyAttack = enemyAttack[enemy]
 }
 // Resultado de los combates entre mascotas.
 function combat() {
-    if (playerAttack == enemyAttack) {
-        createMessage('Empate');
-    } else if (playerAttack == 'Fuego' && enemyAttack == 'Tierra') {
-        createMessage('Ganaste');
-        enemyLives--;
-        spanLivesPetEnemy.innerHTML = enemyLives;
-    } else if (playerAttack == 'Agua' && enemyAttack == 'Fuego') {
-        createMessage('Ganaste');
-        enemyLives--;
-        spanLivesPetEnemy.innerHTML = enemyLives;
-    } else if (playerAttack == 'Tierra' && enemyAttack == 'Agua'){
-        createMessage('Ganaste');
-        enemyLives--;
-        spanLivesPetEnemy.innerHTML = enemyLives;
-    } else {
-        createMessage('Perdiste');
-        playerLives--;
-        spanLivesPetPlayer.innerHTML = playerLives;
+    for (let i = 0; i < playerAttack.length; i++) {
+        if (playerAttack[i] === enemyAttack[1]) {
+            oponentsValues(i, i)
+            createMessage('Empate')
+            spanLivesPetPlayer.innerHTML = victoriesPlayer
+        } else if (playerAttack[i] === 'Fuego' && enemyAttack[i] === 'Tierra') {
+            oponentsValues(i, i)
+            createMessage('Ganaste')
+            victoriesPlayer++
+            spanLivesPetPlayer.innerHTML = victoriesPlayer
+        } else if (playerAttack[i] === 'Agua' && enemyAttack[i] === 'Fuego') {
+            oponentsValues(i, i)
+            createMessage('Ganaste')
+            victoriesPlayer++
+            spanLivesPetPlayer.innerHTML = victoriesPlayer
+        } else if (playerAttack[i] === 'Tierra' && enemyAttack[i] === 'Agua') {
+            oponentsValues(i, i)
+            createMessage('Ganaste')
+            victoriesPlayer++
+            spanLivesPetPlayer.innerHTML = victoriesPlayer
+        } else {
+            oponentsValues(i, i)
+            createMessage('Perdiste')
+            victoriesEnemy++
+            spanLivesPetEnemy.innerHTML = victoriesEnemy
+        }
     }
-
-    lives();
+    victories();
 }
 // Revisar vidas
-function lives() {
-    if (enemyLives == 0) {
-        createFinalMessage("Felicitaciones! Ganaste!");
-    } else if (playerLives == 0){
-        createFinalMessage("Lo siento, has perdido...");
+function victories() {
+    if (victoriesPlayer === victoriesEnemy) {
+        createFinalMessage("EMPATE")
+    } else if (victoriesPlayer > victoriesEnemy){
+        createFinalMessage("GANASTE")
+    } else {
+        createFinalMessage("PERDISTE")
     }
 }
 // Mensaje de elecciones de jugadores.
 function createMessage(combatResult) {
     scoreSection.innerHTML = combatResult;
 
-    let playerNotification = document.createElement('p');
-    playerNotification.innerHTML = playerAttack;
-    playerAttacks.appendChild(playerNotification);
+    let playerNotification = document.createElement('p')
+    playerNotification.innerHTML = indexPlayerAttack
+    playerAttacks.appendChild(playerNotification)
 
-    let enemyNotification = document.createElement('p');
-    enemyNotification.innerHTML = enemyAttack;
-    enemyAttacks.appendChild(enemyNotification);
+    let enemyNotification = document.createElement('p')
+    enemyNotification.innerHTML = indexEnemyAttack
+    enemyAttacks.appendChild(enemyNotification)
 }
 // Mensaje de resultado final
 function createFinalMessage(finalResult) {
-    scoreSection.innerHTML = finalResult;
+    scoreSection.innerHTML = finalResult
     // Deshabilitación de botones del juego
-    buttonFire.disabled = true;
-    buttonWater.disabled = true;
-    buttonEarth.disabled = true;
+    buttonFire.disabled = true
+    buttonWater.disabled = true
+    buttonEarth.disabled = true
     // Aparición de botón reiniciar
-    sectionRestart.style.display = 'flex';
+    sectionRestart.style.display = 'flex'
 }
 // Reiniciar juego
 function restartGame() {
